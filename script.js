@@ -250,6 +250,7 @@ function updateInventoryDisplay() {
                 <p>INT: ${sticker.intelligence}</p>
             </div>
             <button class="upgrade-button" data-index="${index}">Upgrade</button>
+            <button class="sell-button" data-index="${index}">Sell</button>
         `;
         inventoryList.appendChild(inventoryStickerElement);
 
@@ -280,10 +281,25 @@ function upgradeSticker(index) {
     }
 }
 
+function sellSticker(index) {
+    const stickerToSell = userInventory[index];
+    const sellPrice = Math.floor(rarityStats[stickerToSell.rarity].price / 2);
+
+    userCoins += sellPrice;
+    coinAmount.textContent = userCoins;
+
+    userInventory.splice(index, 1);
+    updateInventoryDisplay();
+}
+
 inventoryList.addEventListener('click', function(event) {
     if (event.target.classList.contains('upgrade-button')) {
         const index = event.target.dataset.index;
         upgradeSticker(index);
+    }
+    if (event.target.classList.contains('sell-button')) {
+        const index = event.target.dataset.index;
+        sellSticker(index);
     }
 });
 
