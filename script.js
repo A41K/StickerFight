@@ -14,6 +14,8 @@ const enemyHealthBar = document.getElementById('enemy-health-bar');
 const enemyHealthText = document.getElementById('enemy-health-text');
 const shopToggleButton = document.getElementById('shop-toggle-button');
 const stickerShop = document.getElementById('sticker-shop');
+const userFightersList = document.getElementById('user-fighters-list');
+const enemyFightersList = document.getElementById('enemy-fighters-list');
 
 const localStickers = [
     { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg', rarity: 'Common' },
@@ -152,15 +154,26 @@ function createStickerElement(sticker) {
         <p>${sticker.name}</p>
         <p class="rarity ${sticker.rarity.toLowerCase()}">${sticker.rarity}</p>
     `;
-    // Add hover for stats - basic implementation
     const statsPreview = document.createElement('div');
     statsPreview.classList.add('stats-preview');
-    statsPreview.innerHTML = `
-        <p>ATK: 1</p>
-        <p>DEF: 1</p>
-        <p>INT: 1</p>
-    `;
-    statsPreview.style.display = 'none'; // Hide by default
+
+    if (sticker.attack !== undefined) {
+        statsPreview.innerHTML = `
+            <p>ATK: ${sticker.attack}</p>
+            <p>DEF: ${sticker.defense}</p>
+            <p>INT: ${sticker.intelligence}</p>
+        `;
+    } else {
+        const rarity = sticker.rarity || 'Common';
+        const statRange = rarityStats[rarity];
+        statsPreview.innerHTML = `
+            <p>ATK: ${statRange.min}-${statRange.max}</p>
+            <p>DEF: ${statRange.min}-${statRange.max}</p>
+            <p>INT: 1</p>
+        `;
+    }
+    
+    statsPreview.style.display = 'none';
     stickerElement.appendChild(statsPreview);
 
     stickerElement.addEventListener('mouseover', () => {
@@ -212,7 +225,7 @@ stickerList.addEventListener('click', function(event) {
 
 function updateInventoryDisplay() {
     inventoryList.innerHTML = '';
-    userFighters.innerHTML = '<h3>Your Team</h3>';
+    userFightersList.innerHTML = '';
 
     userInventory.forEach((sticker, index) => {
         const inventoryStickerElement = createStickerElement(sticker);
@@ -234,7 +247,7 @@ function updateInventoryDisplay() {
                 <p>A: ${sticker.attack} D: ${sticker.defense}</p>
             </div>
         `;
-        userFighters.appendChild(fighterStickerElement);
+        userFightersList.appendChild(fighterStickerElement);
     });
 }
 
@@ -245,8 +258,8 @@ function upgradeSticker(index) {
     if (userCoins >= cost) {
         userCoins -= cost;
         sticker.level++;
-        sticker.attack += getRandomStat(1, 3);
-        sticker.defense += getRandomStat(1, 3);
+        sticker.attack += Math.floor(Math.random() * 3) + 1;
+        sticker.defense += Math.floor(Math.random() * 3) + 1;
         coinAmount.textContent = userCoins;
         updateInventoryDisplay();
     } else {
@@ -277,10 +290,16 @@ function setupEnemyTeam() {
 }
 
 function updateEnemyFightersDisplay() {
-    enemyFighters.innerHTML = '<h3>Enemy Team</h3>';
+    enemyFightersList.innerHTML = '';
     enemyInventory.forEach(sticker => {
         const stickerElement = createStickerElement(sticker);
-        enemyFighters.appendChild(stickerElement);
+        stickerElement.innerHTML += `
+            <div class="stats">
+                <p>Lvl: ${sticker.level}</p>
+                <p>A: ${sticker.attack} D: ${sticker.defense}</p>
+            </div>
+        `;
+        enemyFightersList.appendChild(stickerElement);
     });
 }
 

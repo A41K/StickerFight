@@ -43,11 +43,18 @@ main {
     border-radius: 8px;
 }
 
-#sticker-list, #inventory-list, .fighters > div {
+#sticker-list, #inventory-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 1em;
     min-height: 120px;
+}
+
+.fighters-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 1em;
+    margin-top: 1em;
 }
 
 .sticker {
