@@ -43,6 +43,10 @@ let enemyInventory = [];
 let allStickers = [];
 let selectedStickers = [];
 
+function getRandomStat(min = 1, max = 5) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function initializeGame() {
     allStickers = localStickers;
     showInitialStickerSelection();
@@ -84,8 +88,8 @@ confirmSelectionButton.addEventListener('click', () => {
     userInventory = selectedStickers.map(sticker => ({
         ...sticker,
         level: 1,
-        attack: 1,
-        defense: 1,
+        attack: getRandomStat(),
+        defense: getRandomStat(),
         intelligence: 1
     }));
     modal.style.display = 'none';
@@ -181,8 +185,8 @@ function setupEnemyTeam() {
     enemyInventory = enemyTeam.map(sticker => ({
         ...sticker,
         level: 1,
-        attack: 1,
-        defense: 1,
+        attack: getRandomStat(),
+        defense: getRandomStat(),
         intelligence: 1
     }));
 
