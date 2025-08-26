@@ -1,0 +1,76 @@
+body {
+    font-family: sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    margin: 0;
+}
+
+header, footer {
+    background-color: #f0f0f0;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    padding: 1em;
+}
+
+#sticker-shop, #user-inventory, #fight-arena {
+    border: 1px solid #ccc;
+    padding: 1em;
+    border-radius: 8px;
+}
+
+#sticker-list, #inventory-list, .fighters > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1em;
+    min-height: 120px;
+}
+
+.sticker {
+    border: 1px solid #eee;
+    padding: 0.5em;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sticker:hover {
+    background-color: #f9f9f9;
+    border-color: #ddd;
+}
+
+.stats {
+    font-size: 0.8em;
+    margin-top: 0.5em;
+}
+
+.stats p {
+    margin: 0.2em 0;
+}
+
+.sticker img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+#fight-arena {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+#fight-button {
+    grid-column: span 2;
+    justify-self: center;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
