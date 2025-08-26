@@ -7,6 +7,7 @@ const fightLog = document.getElementById('fight-log');
 const modal = document.getElementById('sticker-selection-modal');
 const modalStickerList = document.getElementById('modal-sticker-list');
 const confirmSelectionButton = document.getElementById('confirm-selection-button');
+const coinAmount = document.getElementById('coin-amount');
 
 const localStickers = [
     { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg' },
@@ -42,6 +43,7 @@ let userInventory = [];
 let enemyInventory = [];
 let allStickers = [];
 let selectedStickers = [];
+let userCoins = 100;
 
 function getRandomStat(min = 1, max = 5) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -93,7 +95,7 @@ confirmSelectionButton.addEventListener('click', () => {
         intelligence: 1
     }));
     modal.style.display = 'none';
-    displayStickers(allStickers);
+    displayStickers(allStickers.map(s => ({ ...s, price: 50 }))); // Add price to shop stickers
     updateInventoryDisplay();
     setupEnemyTeam();
 });
@@ -103,7 +105,7 @@ function displayStickers(stickers) {
     stickerList.innerHTML = '';
     stickers.forEach(sticker => {
         const stickerElement = createStickerElement(sticker);
-        stickerElement.addEventListener('click', () => addStickerToInventory(sticker));
+        stickerElement.innerHTML += `<button class="buy-button" data-name="${sticker.name}">Buy (50)</button>`;
         stickerList.appendChild(stickerElement);
     });
 }
@@ -144,18 +146,40 @@ function addStickerToInventory(sticker) {
     userInventory.push({
         ...sticker,
         level: 1,
-        attack: 1,
-        defense: 1,
+        attack: getRandomStat(),
+        defense: getRandomStat(),
         intelligence: 1
     });
     updateInventoryDisplay();
 }
 
+function buySticker(stickerName) {
+    const stickerToBuy = allStickers.find(s => s.name === stickerName);
+    const price = 50; // All stickers cost 50 for now
+
+    if (userCoins >= price && userInventory.length < 5) {
+        userCoins -= price;
+        coinAmount.textContent = userCoins;
+        addStickerToInventory(stickerToBuy);
+    } else if (userInventory.length >= 5) {
+        alert('Your inventory is full!');
+    } else {
+        alert('Not enough coins!');
+    }
+}
+
+stickerList.addEventListener('click', function(event) {
+    if (event.target.classList.contains('buy-button')) {
+        const stickerName = event.target.dataset.name;
+        buySticker(stickerName);
+    }
+});
+
 function updateInventoryDisplay() {
     inventoryList.innerHTML = '';
     userFighters.innerHTML = '<h3>Your Team</h3>';
 
-    userInventory.forEach(sticker => {
+    userInventory.forEach((sticker, index) => {
         const inventoryStickerElement = createStickerElement(sticker);
         inventoryStickerElement.innerHTML += `
             <div class="stats">
@@ -164,6 +188,7 @@ function updateInventoryDisplay() {
                 <p>DEF: ${sticker.defense}</p>
                 <p>INT: ${sticker.intelligence}</p>
             </div>
+            <button class="upgrade-button" data-index="${index}">Upgrade</button>
         `;
         inventoryList.appendChild(inventoryStickerElement);
 
@@ -177,6 +202,29 @@ function updateInventoryDisplay() {
         userFighters.appendChild(fighterStickerElement);
     });
 }
+
+function upgradeSticker(index) {
+    const sticker = userInventory[index];
+    const cost = sticker.level * 10;
+
+    if (userCoins >= cost) {
+        userCoins -= cost;
+        sticker.level++;
+        sticker.attack += getRandomStat(1, 3);
+        sticker.defense += getRandomStat(1, 3);
+        coinAmount.textContent = userCoins;
+        updateInventoryDisplay();
+    } else {
+        alert("Not enough coins to upgrade!");
+    }
+}
+
+inventoryList.addEventListener('click', function(event) {
+    if (event.target.classList.contains('upgrade-button')) {
+        const index = event.target.dataset.index;
+        upgradeSticker(index);
+    }
+});
 
 function setupEnemyTeam() {
     const shuffled = [...allStickers].sort(() => 0.5 - Math.random());
@@ -213,13 +261,16 @@ function fight() {
     let resultMessage = `Your total attack: ${userTotalAttack}. Enemy total defense: ${enemyTotalDefense}.<br>`;
 
     if (userTotalAttack > enemyTotalDefense) {
-        resultMessage += "<strong>You win!</strong>";
+        resultMessage += "<strong>You win!</strong> You earned 20 coins.";
+        userCoins += 20;
     } else if (userTotalAttack < enemyTotalDefense) {
         resultMessage += "<strong>You lose!</strong>";
     } else {
-        resultMessage += "<strong>It's a draw!</strong>";
+        resultMessage += "<strong>It's a draw!</strong> You earned 5 coins.";
+        userCoins += 5;
     }
 
+    coinAmount.textContent = userCoins;
     fightLog.innerHTML = `<p>${resultMessage}</p>`;
 }
 

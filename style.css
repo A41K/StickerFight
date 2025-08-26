@@ -10,6 +10,14 @@ header, footer {
     background-color: #f0f0f0;
     padding: 1em;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#currency-display {
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 main {
@@ -142,6 +150,28 @@ main {
 .sticker.selected {
     border-color: #4CAF50;
     background-color: #e8f5e9;
+}
+
+.sticker .upgrade-button {
+    margin-top: 5px;
+    padding: 3px 8px;
+    font-size: 0.8em;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+.sticker .buy-button {
+    margin-top: 5px;
+    padding: 3px 8px;
+    font-size: 0.8em;
+    cursor: pointer;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 3px;
 }
 
 .sticker .stats-preview {
