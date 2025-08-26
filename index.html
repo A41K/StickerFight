@@ -9,18 +9,13 @@
 <body>
     <header>
         <h1>Sticker Fight</h1>
-        <div id="currency-display">
-            <span>Coins:</span>
-            <span id="coin-amount">100</span>
-        </div>
+        <div id="currency-display">Coins: <span id="coin-amount">100</span></div>
     </header>
     <main>
         <section id="sticker-shop">
-            <h2 id="shop-toggle">Sticker Shop (Click to Toggle)</h2>
+            <h2 id="shop-toggle-button">Sticker Shop (Click to Toggle)</h2>
             <div id="sticker-list-container">
-                <div id="sticker-list">
-                    <!-- Stickers will be populated by JavaScript -->
-                </div>
+                <div id="sticker-list"></div>
             </div>
         </section>
         <section id="user-inventory">
@@ -35,14 +30,14 @@
                     <div class="health-bar-container">
                         <div id="user-health-bar" class="health-bar"></div>
                     </div>
-                    <span id="user-health-text">100/100</span>
+                    <p id="user-health-text">HP: 100/100</p>
                 </div>
                 <div class="fighters" id="enemy-fighters">
                     <h3>Enemy Team</h3>
                     <div class="health-bar-container">
                         <div id="enemy-health-bar" class="health-bar"></div>
                     </div>
-                    <span id="enemy-health-text">100/100</span>
+                    <p id="enemy-health-text">HP: 100/100</p>
                 </div>
             </div>
             <button id="fight-button">Fight!</button>

@@ -12,55 +12,55 @@ const userHealthBar = document.getElementById('user-health-bar');
 const userHealthText = document.getElementById('user-health-text');
 const enemyHealthBar = document.getElementById('enemy-health-bar');
 const enemyHealthText = document.getElementById('enemy-health-text');
-const shopToggle = document.getElementById('shop-toggle');
-const stickerListContainer = document.getElementById('sticker-list-container');
+const shopToggleButton = document.getElementById('shop-toggle-button');
+const stickerShop = document.getElementById('sticker-shop');
 
 const localStickers = [
-    { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg' },
-    { name: '2018 Holidays', url: 'Stickers/2018 Holidays.svg' },
-    { name: '2020 Progress', url: 'Stickers/2020 Progress.png' },
-    { name: '2020 Storm The Hack', url: 'Stickers/2020 Storm The Hack.png' },
-    { name: '2021 Design Awards', url: 'Stickers/2021 Design Awards.png' },
-    { name: '2025 Summer of Making', url: 'Stickers/2025 Summer of Making.png' },
-    { name: 'AI Safety Campfire', url: 'Stickers/AI Safety Campfire.png' },
-    { name: 'AI Safety Meme', url: 'Stickers/AI Safety Meme.png' },
-    { name: 'Adobe', url: 'Stickers/Adobe.svg' },
-    { name: 'Airlines', url: 'Stickers/Airlines.png' },
-    { name: 'All Fun Javascript', url: 'Stickers/All Fun Javascript.svg' },
-    { name: 'Anxiety', url: 'Stickers/Anxiety.png' },
-    { name: 'Apocalypse', url: 'Stickers/Apocalypse.png' },
-    { name: 'Arcade', url: 'Stickers/Arcade.png' },
-    { name: 'Arrpheus', url: 'Stickers/Arrpheus.png' },
-    { name: 'Assemble', url: 'Stickers/Assemble.svg' },
-    { name: 'Athena Award Bow', url: 'Stickers/Athena Award Bow.png' },
-    { name: 'Athena Award Orpheus', url: 'Stickers/Athena Award Orpheus.png' },
-    { name: 'Athena Black', url: 'Stickers/Athena Black.png' },
-    { name: 'Athena Sparkles', url: 'Stickers/Athena Sparkles.png' },
-    { name: 'Black Lives Matter', url: 'Stickers/Black Lives Matter.svg' },
-    { name: 'Blot Robot', url: 'Stickers/Blot Robot.png' },
-    { name: 'Blot', url: 'Stickers/Blot.png' },
-    { name: 'Boba Drops', url: 'Stickers/Boba Drops.png' },
-    { name: 'Bottle Caps', url: 'Stickers/Bottle Caps.png' },
-    { name: 'Burst', url: 'Stickers/Burst.png' },
-    { name: 'CAC', url: 'Stickers/CAC.png' },
-    { name: 'Cascade', url: 'Stickers/Cascade.png' },
-    { name: 'Cerberus on Laptop', url: 'Stickers/Cerberus on Laptop.png' },
-    { name: 'Drake', url: 'Stickers/Drake.svg' },
-    { name: 'Duck on Boat', url: 'Stickers/Duck on Boat.png' },
-    { name: 'Emergency Meeting', url: 'Stickers/Emergency Meeting.svg' },
-    { name: 'Epoch Among Us', url: 'Stickers/Epoch Among Us.png' },
-    { name: 'Epoch Bubbly', url: 'Stickers/Epoch Bubbly.png' },
-    { name: 'Epoch H', url: 'Stickers/Epoch H.png' },
-    { name: 'Epoch', url: 'Stickers/Epoch.png' },
-    { name: 'FIRST Co-Branded No Ears', url: 'Stickers/FIRST Co-Branded No Ears.png' },
-    { name: 'Find Out', url: 'Stickers/Find Out.png' },
-    { name: 'Friends', url: 'Stickers/Friends.svg' },
-    { name: 'From Myth to Mainframe', url: 'Stickers/From Myth to Mainframe.png' },
-    { name: 'Game Lab Flask', url: 'Stickers/Game Lab Flask.png' },
-    { name: 'Game Lab', url: 'Stickers/Game Lab.png' },
-    { name: 'Grab', url: 'Stickers/Grab.png' },
-    { name: 'Hack Club HQ', url: 'Stickers/Hack Club HQ.png' },
-    { name: 'Hack Cola', url: 'Stickers/Hack Cola.svg' }
+    { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg', rarity: 'Common' },
+    { name: '2018 Holidays', url: 'Stickers/2018 Holidays.svg', rarity: 'Common' },
+    { name: '2020 Progress', url: 'Stickers/2020 Progress.png', rarity: 'Common' },
+    { name: '2020 Storm The Hack', url: 'Stickers/2020 Storm The Hack.png', rarity: 'Rare' },
+    { name: '2021 Design Awards', url: 'Stickers/2021 Design Awards.png', rarity: 'Rare' },
+    { name: '2025 Summer of Making', url: 'Stickers/2025 Summer of Making.png', rarity: 'Epic' },
+    { name: 'AI Safety Campfire', url: 'Stickers/AI Safety Campfire.png', rarity: 'Common' },
+    { name: 'AI Safety Meme', url: 'Stickers/AI Safety Meme.png', rarity: 'Common' },
+    { name: 'Adobe', url: 'Stickers/Adobe.svg', rarity: 'Common' },
+    { name: 'Airlines', url: 'Stickers/Airlines.png', rarity: 'Common' },
+    { name: 'All Fun Javascript', url: 'Stickers/All Fun Javascript.svg', rarity: 'Rare' },
+    { name: 'Anxiety', url: 'Stickers/Anxiety.png', rarity: 'Common' },
+    { name: 'Apocalypse', url: 'Stickers/Apocalypse.png', rarity: 'Epic' },
+    { name: 'Arcade', url: 'Stickers/Arcade.png', rarity: 'Common' },
+    { name: 'Arrpheus', url: 'Stickers/Arrpheus.png', rarity: 'Rare' },
+    { name: 'Assemble', url: 'Stickers/Assemble.svg', rarity: 'Common' },
+    { name: 'Athena Award Bow', url: 'Stickers/Athena Award Bow.png', rarity: 'Epic' },
+    { name: 'Athena Award Orpheus', url: 'Stickers/Athena Award Orpheus.png', rarity: 'Epic' },
+    { name: 'Athena Black', url: 'Stickers/Athena Black.png', rarity: 'Rare' },
+    { name: 'Athena Sparkles', url: 'Stickers/Athena Sparkles.png', rarity: 'Rare' },
+    { name: 'Black Lives Matter', url: 'Stickers/Black Lives Matter.svg', rarity: 'Common' },
+    { name: 'Blot Robot', url: 'Stickers/Blot Robot.png', rarity: 'Rare' },
+    { name: 'Blot', url: 'Stickers/Blot.png', rarity: 'Common' },
+    { name: 'Boba Drops', url: 'Stickers/Boba Drops.png', rarity: 'Common' },
+    { name: 'Bottle Caps', url: 'Stickers/Bottle Caps.png', rarity: 'Common' },
+    { name: 'Burst', url: 'Stickers/Burst.png', rarity: 'Common' },
+    { name: 'CAC', url: 'Stickers/CAC.png', rarity: 'Common' },
+    { name: 'Cascade', url: 'Stickers/Cascade.png', rarity: 'Common' },
+    { name: 'Cerberus on Laptop', url: 'Stickers/Cerberus on Laptop.png', rarity: 'Rare' },
+    { name: 'Drake', url: 'Stickers/Drake.svg', rarity: 'Common' },
+    { name: 'Duck on Boat', url: 'Stickers/Duck on Boat.png', rarity: 'Common' },
+    { name: 'Emergency Meeting', url: 'Stickers/Emergency Meeting.svg', rarity: 'Rare' },
+    { name: 'Epoch Among Us', url: 'Stickers/Epoch Among Us.png', rarity: 'Rare' },
+    { name: 'Epoch Bubbly', url: 'Stickers/Epoch Bubbly.png', rarity: 'Common' },
+    { name: 'Epoch H', url: 'Stickers/Epoch H.png', rarity: 'Common' },
+    { name: 'Epoch', url: 'Stickers/Epoch.png', rarity: 'Common' },
+    { name: 'FIRST Co-Branded No Ears', url: 'Stickers/FIRST Co-Branded No Ears.png', rarity: 'Rare' },
+    { name: 'Find Out', url: 'Stickers/Find Out.png', rarity: 'Common' },
+    { name: 'Friends', url: 'Stickers/Friends.svg', rarity: 'Common' },
+    { name: 'From Myth to Mainframe', url: 'Stickers/From Myth to Mainframe.png', rarity: 'Epic' },
+    { name: 'Game Lab Flask', url: 'Stickers/Game Lab Flask.png', rarity: 'Rare' },
+    { name: 'Game Lab', url: 'Stickers/Game Lab.png', rarity: 'Common' },
+    { name: 'Grab', url: 'Stickers/Grab.png', rarity: 'Common' },
+    { name: 'Hack Club HQ', url: 'Stickers/Hack Club HQ.png', rarity: 'Rare' },
+    { name: 'Hack Cola', url: 'Stickers/Hack Cola.svg', rarity: 'Common' }
 ];
 
 let userInventory = [];
@@ -71,13 +71,15 @@ let userCoins = 100;
 let userHealth = 100;
 let enemyHealth = 100;
 
-shopToggle.addEventListener('click', () => {
-    const isVisible = stickerListContainer.style.display !== 'none';
-    stickerListContainer.style.display = isVisible ? 'none' : 'block';
-});
+const rarityStats = {
+    'Common': { min: 1, max: 5, price: 50 },
+    'Rare': { min: 5, max: 10, price: 100 },
+    'Epic': { min: 10, max: 20, price: 200 }
+};
 
-function getRandomStat(min = 1, max = 5) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function getRandomStat(rarity = 'Common') {
+    const stats = rarityStats[rarity];
+    return Math.floor(Math.random() * (stats.max - stats.min + 1)) + stats.min;
 }
 
 function initializeGame() {
@@ -121,12 +123,12 @@ confirmSelectionButton.addEventListener('click', () => {
     userInventory = selectedStickers.map(sticker => ({
         ...sticker,
         level: 1,
-        attack: getRandomStat(),
-        defense: getRandomStat(),
+        attack: getRandomStat(sticker.rarity),
+        defense: getRandomStat(sticker.rarity),
         intelligence: 1
     }));
     modal.style.display = 'none';
-    displayStickers(allStickers.map(s => ({ ...s, price: 50 }))); // Add price to shop stickers
+    displayStickers(allStickers);
     updateInventoryDisplay();
     setupEnemyTeam();
 });
@@ -136,7 +138,8 @@ function displayStickers(stickers) {
     stickerList.innerHTML = '';
     stickers.forEach(sticker => {
         const stickerElement = createStickerElement(sticker);
-        stickerElement.innerHTML += `<button class="buy-button" data-name="${sticker.name}">Buy (50)</button>`;
+        const price = rarityStats[sticker.rarity].price;
+        stickerElement.innerHTML += `<button class="buy-button" data-name="${sticker.name}">Buy (${price})</button>`;
         stickerList.appendChild(stickerElement);
     });
 }
@@ -147,6 +150,7 @@ function createStickerElement(sticker) {
     stickerElement.innerHTML = `
         <img src="${sticker.url}" alt="${sticker.name}">
         <p>${sticker.name}</p>
+        <p class="rarity ${sticker.rarity.toLowerCase()}">${sticker.rarity}</p>
     `;
     // Add hover for stats - basic implementation
     const statsPreview = document.createElement('div');
@@ -177,8 +181,8 @@ function addStickerToInventory(sticker) {
     userInventory.push({
         ...sticker,
         level: 1,
-        attack: getRandomStat(),
-        defense: getRandomStat(),
+        attack: getRandomStat(sticker.rarity),
+        defense: getRandomStat(sticker.rarity),
         intelligence: 1
     });
     updateInventoryDisplay();
@@ -186,7 +190,7 @@ function addStickerToInventory(sticker) {
 
 function buySticker(stickerName) {
     const stickerToBuy = allStickers.find(s => s.name === stickerName);
-    const price = 50; // All stickers cost 50 for now
+    const price = rarityStats[stickerToBuy.rarity].price;
 
     if (userCoins >= price && userInventory.length < 5) {
         userCoins -= price;
@@ -264,8 +268,8 @@ function setupEnemyTeam() {
     enemyInventory = enemyTeam.map(sticker => ({
         ...sticker,
         level: 1,
-        attack: getRandomStat(),
-        defense: getRandomStat(),
+        attack: getRandomStat(sticker.rarity),
+        defense: getRandomStat(sticker.rarity),
         intelligence: 1
     }));
 
@@ -300,26 +304,59 @@ function fight() {
 
     // Update health bars and text
     userHealthBar.style.width = `${userHealth}%`;
-    userHealthText.textContent = `${userHealth}/100`;
+    userHealthText.textContent = `HP: ${userHealth}/100`;
     enemyHealthBar.style.width = `${enemyHealth}%`;
-    enemyHealthText.textContent = `${enemyHealth}/100`;
+    enemyHealthText.textContent = `HP: ${enemyHealth}/100`;
 
     // Log the round's events
-    let roundLog = `You dealt ${userTotalAttack} damage. The enemy dealt ${enemyTotalAttack} damage.<br>`;
-    fightLog.innerHTML = `<p>${roundLog}</p>`;
+    const roundLog = document.createElement('div');
+    roundLog.classList.add('log-entry');
+    roundLog.innerHTML = `You dealt ${userTotalAttack} damage. The enemy dealt ${enemyTotalAttack} damage.`;
+    fightLog.appendChild(roundLog);
+    fightLog.scrollTop = fightLog.scrollHeight; // Scroll to the bottom
 
     // Check for a winner
     if (userHealth <= 0) {
-        fightLog.innerHTML += "<p><strong>You have been defeated!</strong></p>";
-        fightButton.disabled = true;
+        const endLog = document.createElement('div');
+        endLog.classList.add('log-entry');
+        endLog.innerHTML = "<strong>You have been defeated!</strong>";
+        fightLog.appendChild(endLog);
+        fightButton.textContent = "Rematch";
+        fightButton.disabled = false;
+        fightButton.removeEventListener('click', fight);
+        fightButton.addEventListener('click', resetFight);
     } else if (enemyHealth <= 0) {
         const coinsWon = 50;
         userCoins += coinsWon;
         coinAmount.textContent = userCoins;
-        fightLog.innerHTML += `<p><strong>You are victorious!</strong> You earned ${coinsWon} coins.</p>`;
-        fightButton.disabled = true;
+        const endLog = document.createElement('div');
+        endLog.classList.add('log-entry');
+        endLog.innerHTML = `<strong>You are victorious!</strong> You earned ${coinsWon} coins.`;
+        fightLog.appendChild(endLog);
+        fightButton.textContent = "Rematch";
+        fightButton.disabled = false;
+        fightButton.removeEventListener('click', fight);
+        fightButton.addEventListener('click', resetFight);
     }
 }
+
+function resetFight() {
+    userHealth = 100;
+    enemyHealth = 100;
+    userHealthBar.style.width = '100%';
+    userHealthText.textContent = `HP: 100/100`;
+    enemyHealthBar.style.width = '100%';
+    enemyHealthText.textContent = `HP: 100/100`;
+    fightLog.innerHTML = '';
+    setupEnemyTeam();
+    fightButton.textContent = "Fight!";
+    fightButton.removeEventListener('click', resetFight);
+    fightButton.addEventListener('click', fight);
+}
+
+shopToggleButton.addEventListener('click', () => {
+    stickerShop.classList.toggle('collapsed');
+});
 
 fightButton.addEventListener('click', fight);
 
