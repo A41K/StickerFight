@@ -86,6 +86,23 @@ main {
     text-align: center;
 }
 
+.health-bar-container {
+    width: 80%;
+    height: 20px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+}
+
+.health-bar {
+    height: 100%;
+    width: 100%; /* Full at the start */
+    background-color: #4CAF50; /* Green */
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+}
+
 .fighters .sticker {
     display: inline-block;
     width: 60px; /* Smaller stickers in the arena */

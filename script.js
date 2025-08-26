@@ -8,6 +8,10 @@ const modal = document.getElementById('sticker-selection-modal');
 const modalStickerList = document.getElementById('modal-sticker-list');
 const confirmSelectionButton = document.getElementById('confirm-selection-button');
 const coinAmount = document.getElementById('coin-amount');
+const userHealthBar = document.getElementById('user-health-bar');
+const userHealthText = document.getElementById('user-health-text');
+const enemyHealthBar = document.getElementById('enemy-health-bar');
+const enemyHealthText = document.getElementById('enemy-health-text');
 
 const localStickers = [
     { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg' },
@@ -44,6 +48,8 @@ let enemyInventory = [];
 let allStickers = [];
 let selectedStickers = [];
 let userCoins = 100;
+let userHealth = 100;
+let enemyHealth = 100;
 
 function getRandomStat(min = 1, max = 5) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -250,28 +256,44 @@ function updateEnemyFightersDisplay() {
 }
 
 function fight() {
-    if (userInventory.length === 0 || enemyInventory.length === 0) {
-        fightLog.innerHTML = "<p>Both teams need stickers to fight!</p>";
+    if (userInventory.length === 0 || enemyInventory.length === 0 || userHealth <= 0 || enemyHealth <= 0) {
+        fightLog.innerHTML = "<p>The battle is over or teams are not ready.</p>";
         return;
     }
 
+    // Calculate total attack for both teams
     const userTotalAttack = userInventory.reduce((total, sticker) => total + sticker.attack, 0);
-    const enemyTotalDefense = enemyInventory.reduce((total, sticker) => total + sticker.defense, 0);
+    const enemyTotalAttack = enemyInventory.reduce((total, sticker) => total + sticker.attack, 0);
 
-    let resultMessage = `Your total attack: ${userTotalAttack}. Enemy total defense: ${enemyTotalDefense}.<br>`;
+    // Simulate the round
+    enemyHealth -= userTotalAttack;
+    userHealth -= enemyTotalAttack;
 
-    if (userTotalAttack > enemyTotalDefense) {
-        resultMessage += "<strong>You win!</strong> You earned 20 coins.";
-        userCoins += 20;
-    } else if (userTotalAttack < enemyTotalDefense) {
-        resultMessage += "<strong>You lose!</strong>";
-    } else {
-        resultMessage += "<strong>It's a draw!</strong> You earned 5 coins.";
-        userCoins += 5;
+    // Ensure health doesn't go below zero
+    if (userHealth < 0) userHealth = 0;
+    if (enemyHealth < 0) enemyHealth = 0;
+
+    // Update health bars and text
+    userHealthBar.style.width = `${userHealth}%`;
+    userHealthText.textContent = `${userHealth}/100`;
+    enemyHealthBar.style.width = `${enemyHealth}%`;
+    enemyHealthText.textContent = `${enemyHealth}/100`;
+
+    // Log the round's events
+    let roundLog = `You dealt ${userTotalAttack} damage. The enemy dealt ${enemyTotalAttack} damage.<br>`;
+    fightLog.innerHTML = `<p>${roundLog}</p>`;
+
+    // Check for a winner
+    if (userHealth <= 0) {
+        fightLog.innerHTML += "<p><strong>You have been defeated!</strong></p>";
+        fightButton.disabled = true;
+    } else if (enemyHealth <= 0) {
+        const coinsWon = 50;
+        userCoins += coinsWon;
+        coinAmount.textContent = userCoins;
+        fightLog.innerHTML += `<p><strong>You are victorious!</strong> You earned ${coinsWon} coins.</p>`;
+        fightButton.disabled = true;
     }
-
-    coinAmount.textContent = userCoins;
-    fightLog.innerHTML = `<p>${resultMessage}</p>`;
 }
 
 fightButton.addEventListener('click', fight);
