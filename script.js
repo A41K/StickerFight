@@ -16,6 +16,8 @@ const shopToggleButton = document.getElementById('shop-toggle-button');
 const stickerShop = document.getElementById('sticker-shop');
 const userFightersList = document.getElementById('user-fighters-list');
 const enemyFightersList = document.getElementById('enemy-fighters-list');
+const searchBar = document.getElementById('search-bar');
+const rarityFilter = document.getElementById('rarity-filter');
 
 const localStickers = [
     { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg', rarity: 'Common' },
@@ -74,9 +76,10 @@ let userHealth = 100;
 let enemyHealth = 100;
 
 const rarityStats = {
-    'Common': { min: 1, max: 5, price: 50 },
-    'Rare': { min: 5, max: 10, price: 100 },
-    'Epic': { min: 10, max: 20, price: 200 }
+    'Common': { min: 1, max: 5, price: 25 },
+    'Uncommon': { min: 5, max: 10, price: 50 },
+    'Rare': { min: 10, max: 20, price: 100 },
+    'Epic': { min: 20, max: 30, price: 200 }
 };
 
 function getRandomStat(rarity = 'Common') {
@@ -143,20 +146,28 @@ confirmSelectionButton.addEventListener('click', () => {
         intelligence: 1
     }));
     modal.style.display = 'none';
-    displayStickers(allStickers);
+    displayShopStickers();
     updateInventoryDisplay();
     setupEnemyTeam();
 });
 
-
-function displayStickers(stickers) {
+function displayShopStickers() {
+    const searchTerm = searchBar.value.toLowerCase();
+    const selectedRarity = rarityFilter.value;
     stickerList.innerHTML = '';
-    stickers.forEach(sticker => {
-        const stickerElement = createStickerElement(sticker);
-        const price = rarityStats[sticker.rarity].price;
-        stickerElement.innerHTML += `<button class="buy-button" data-name="${sticker.name}">Buy (${price})</button>`;
-        stickerList.appendChild(stickerElement);
-    });
+
+    const inventoryStickerNames = userInventory.map(s => s.name);
+
+    allStickers
+        .filter(sticker => !inventoryStickerNames.includes(sticker.name))
+        .filter(sticker => sticker.name.toLowerCase().includes(searchTerm))
+        .filter(sticker => selectedRarity === 'all' || sticker.rarity === selectedRarity)
+        .forEach(sticker => {
+            const stickerElement = createStickerElement(sticker);
+            const price = rarityStats[sticker.rarity].price;
+            stickerElement.innerHTML += `<button class="buy-button" data-name="${sticker.name}">Buy (${price})</button>`;
+            stickerList.appendChild(stickerElement);
+        });
 }
 
 function createStickerElement(sticker) {
@@ -222,6 +233,7 @@ function buySticker(stickerName) {
         userCoins -= price;
         coinAmount.textContent = userCoins;
         addStickerToInventory(stickerToBuy);
+        displayShopStickers();
     } else if (userInventory.length >= 5) {
         alert('Your inventory is full!');
     } else {

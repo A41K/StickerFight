@@ -44,6 +44,20 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+#shop-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+#search-bar, #rarity-filter {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #3c3c3c;
+    color: #f0f0f0;
+}
+
 h2 {
     color: #e0e0e0;
     border-bottom: 2px solid #444;
@@ -226,6 +240,10 @@ h2 {
 
 .rarity.common {
     color: #adb5bd;
+}
+
+.rarity.uncommon {
+    color: #4caf50;
 }
 
 .rarity.rare {
