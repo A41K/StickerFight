@@ -19,6 +19,9 @@ const enemyFightersList = document.getElementById('enemy-fighters-list');
 const searchBar = document.getElementById('search-bar');
 const rarityFilter = document.getElementById('rarity-filter');
 
+searchBar.addEventListener('input', displayShopStickers);
+rarityFilter.addEventListener('change', displayShopStickers);
+
 const localStickers = [
     { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg', rarity: 'Common' },
     { name: '2018 Holidays', url: 'Stickers/2018 Holidays.svg', rarity: 'Common' },
