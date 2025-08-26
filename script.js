@@ -3,6 +3,7 @@ const inventoryList = document.getElementById('inventory-list');
 const userFighters = document.getElementById('user-fighters');
 const enemyFighters = document.getElementById('enemy-fighters');
 const fightButton = document.getElementById('fight-button');
+const fightLog = document.getElementById('fight-log');
 const modal = document.getElementById('sticker-selection-modal');
 const modalStickerList = document.getElementById('modal-sticker-list');
 const confirmSelectionButton = document.getElementById('confirm-selection-button');
@@ -25,7 +26,16 @@ const localStickers = [
     { name: 'Arrpheus', url: 'Stickers/Arrpheus.png' },
     { name: 'Assemble', url: 'Stickers/Assemble.svg' },
     { name: 'Athena Award Bow', url: 'Stickers/Athena Award Bow.png' },
-    { name: 'Athena Award Orpheus', url: 'Stickers/Athena Award Orpheus.png' }
+    { name: 'Athena Award Orpheus', url: 'Stickers/Athena Award Orpheus.png' },
+    { name: 'Athena Black', url: 'Stickers/Athena Black.png' },
+    { name: 'Athena Sparkles', url: 'Stickers/Athena Sparkles.png' },
+    { name: 'Black Lives Matter', url: 'Stickers/Black Lives Matter.svg' },
+    { name: 'Blot Robot', url: 'Stickers/Blot Robot.png' },
+    { name: 'Blot', url: 'Stickers/Blot.png' },
+    { name: 'Boba Drops', url: 'Stickers/Boba Drops.png' },
+    { name: 'Bottle Caps', url: 'Stickers/Bottle Caps.png' },
+    { name: 'Burst', url: 'Stickers/Burst.png' },
+    { name: 'CAC', url: 'Stickers/CAC.png' }
 ];
 
 let userInventory = [];
@@ -186,6 +196,30 @@ function updateEnemyFightersDisplay() {
         enemyFighters.appendChild(stickerElement);
     });
 }
+
+function fight() {
+    if (userInventory.length === 0 || enemyInventory.length === 0) {
+        fightLog.innerHTML = "<p>Both teams need stickers to fight!</p>";
+        return;
+    }
+
+    const userTotalAttack = userInventory.reduce((total, sticker) => total + sticker.attack, 0);
+    const enemyTotalDefense = enemyInventory.reduce((total, sticker) => total + sticker.defense, 0);
+
+    let resultMessage = `Your total attack: ${userTotalAttack}. Enemy total defense: ${enemyTotalDefense}.<br>`;
+
+    if (userTotalAttack > enemyTotalDefense) {
+        resultMessage += "<strong>You win!</strong>";
+    } else if (userTotalAttack < enemyTotalDefense) {
+        resultMessage += "<strong>You lose!</strong>";
+    } else {
+        resultMessage += "<strong>It's a draw!</strong>";
+    }
+
+    fightLog.innerHTML = `<p>${resultMessage}</p>`;
+}
+
+fightButton.addEventListener('click', fight);
 
 // Start the game using local data
 initializeGame();

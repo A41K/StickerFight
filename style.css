@@ -75,6 +75,16 @@ main {
     cursor: pointer;
 }
 
+#fight-log {
+    grid-column: span 2;
+    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    min-height: 50px;
+    text-align: center;
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
