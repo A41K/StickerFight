@@ -111,6 +111,19 @@ function toggleStickerSelection(sticker, element) {
         selectedStickers.splice(index, 1);
         element.classList.remove('selected');
     } else {
+        const epicCount = selectedStickers.filter(s => s.rarity === 'Epic').length;
+        const rareCount = selectedStickers.filter(s => s.rarity === 'Rare').length;
+
+        if (sticker.rarity === 'Epic' && epicCount >= 1) {
+            alert('You can only select one Epic sticker.');
+            return;
+        }
+
+        if (sticker.rarity === 'Rare' && rareCount >= 2) {
+            alert('You can only select up to two Rare stickers.');
+            return;
+        }
+
         if (selectedStickers.length < 5) {
             selectedStickers.push(sticker);
             element.classList.add('selected');
