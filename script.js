@@ -92,7 +92,18 @@ function getRandomStat(rarity = 'Common') {
 
 function initializeGame() {
     allStickers = localStickers;
-    showInitialStickerSelection();
+    
+    // Try to load saved game first
+    if (!loadGame()) {
+        // Only show sticker selection if no saved data exists
+        showInitialStickerSelection();
+    } else {
+        // If loaded successfully, update displays
+        coinAmount.textContent = userCoins; // Add this line to update the displayed coin amount
+        displayShopStickers();
+        updateInventoryDisplay();
+        setupEnemyTeam();
+    }
 }
 
 function showInitialStickerSelection() {
@@ -228,6 +239,7 @@ function addStickerToInventory(sticker) {
     updateInventoryDisplay();
 }
 
+// In buySticker function
 function buySticker(stickerName) {
     const stickerToBuy = allStickers.find(s => s.name === stickerName);
     const price = rarityStats[stickerToBuy.rarity].price;
@@ -237,6 +249,7 @@ function buySticker(stickerName) {
         coinAmount.textContent = userCoins;
         addStickerToInventory(stickerToBuy);
         displayShopStickers();
+        saveGame(); // Add this line
     } else if (userInventory.length >= 5) {
         alert('Your inventory is full!');
     } else {
@@ -291,6 +304,7 @@ function upgradeSticker(index) {
         sticker.defense += Math.floor(Math.random() * 3) + 1;
         coinAmount.textContent = userCoins;
         updateInventoryDisplay();
+        saveGame(); // Add this line
     } else {
         alert("Not enough coins to upgrade!");
     }
@@ -400,6 +414,7 @@ function fight() {
         fightButton.disabled = false;
         fightButton.removeEventListener('click', fight);
         fightButton.addEventListener('click', resetFight);
+        saveGame(); // Add this line
     }
 }
 
@@ -425,3 +440,28 @@ fightButton.addEventListener('click', fight);
 
 // Start the game using local data
 initializeGame();
+
+// Save game data to localStorage
+function saveGame() {
+    const gameData = {
+        userInventory: userInventory,
+        userCoins: userCoins,
+        userHealth: userHealth
+    };
+    localStorage.setItem('stickerFightGameData', JSON.stringify(gameData));
+    console.log('Game saved!');
+}
+
+// Load game data from localStorage
+function loadGame() {
+    const savedData = localStorage.getItem('stickerFightGameData');
+    if (savedData) {
+        const gameData = JSON.parse(savedData);
+        userInventory = gameData.userInventory || [];
+        userCoins = gameData.userCoins !== undefined ? gameData.userCoins : 100;
+        userHealth = gameData.userHealth !== undefined ? gameData.userHealth : 100;
+        console.log('Game loaded!');
+        return true; // Indicate that data was loaded
+    }
+    return false; // Indicate no saved data
+}
