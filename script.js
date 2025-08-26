@@ -40,7 +40,25 @@ const localStickers = [
     { name: 'Boba Drops', url: 'Stickers/Boba Drops.png' },
     { name: 'Bottle Caps', url: 'Stickers/Bottle Caps.png' },
     { name: 'Burst', url: 'Stickers/Burst.png' },
-    { name: 'CAC', url: 'Stickers/CAC.png' }
+    { name: 'CAC', url: 'Stickers/CAC.png' },
+    { name: 'Cascade', url: 'Stickers/Cascade.png' },
+    { name: 'Cerberus on Laptop', url: 'Stickers/Cerberus on Laptop.png' },
+    { name: 'Drake', url: 'Stickers/Drake.svg' },
+    { name: 'Duck on Boat', url: 'Stickers/Duck on Boat.png' },
+    { name: 'Emergency Meeting', url: 'Stickers/Emergency Meeting.svg' },
+    { name: 'Epoch Among Us', url: 'Stickers/Epoch Among Us.png' },
+    { name: 'Epoch Bubbly', url: 'Stickers/Epoch Bubbly.png' },
+    { name: 'Epoch H', url: 'Stickers/Epoch H.png' },
+    { name: 'Epoch', url: 'Stickers/Epoch.png' },
+    { name: 'FIRST Co-Branded No Ears', url: 'Stickers/FIRST Co-Branded No Ears.png' },
+    { name: 'Find Out', url: 'Stickers/Find Out.png' },
+    { name: 'Friends', url: 'Stickers/Friends.svg' },
+    { name: 'From Myth to Mainframe', url: 'Stickers/From Myth to Mainframe.png' },
+    { name: 'Game Lab Flask', url: 'Stickers/Game Lab Flask.png' },
+    { name: 'Game Lab', url: 'Stickers/Game Lab.png' },
+    { name: 'Grab', url: 'Stickers/Grab.png' },
+    { name: 'Hack Club HQ', url: 'Stickers/Hack Club HQ.png' },
+    { name: 'Hack Cola', url: 'Stickers/Hack Cola.svg' }
 ];
 
 let userInventory = [];

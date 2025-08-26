@@ -1,5 +1,10 @@
+@font-face {
+    font-family: 'mini-wakuwaku';
+    src: url('Resources/mini-wakuwaku.ttf.woff') format('woff');
+}
+
 body {
-    font-family: sans-serif;
+    font-family: 'mini-wakuwaku', sans-serif;
     display: grid;
     grid-template-rows: auto 1fr auto;
     height: 100vh;
