@@ -11,6 +11,11 @@ body {
     margin: 0;
 }
 
+#shop-toggle {
+    cursor: pointer;
+    user-select: none;
+}
+
 header, footer {
     background-color: #f0f0f0;
     padding: 1em;

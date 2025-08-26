@@ -12,6 +12,8 @@ const userHealthBar = document.getElementById('user-health-bar');
 const userHealthText = document.getElementById('user-health-text');
 const enemyHealthBar = document.getElementById('enemy-health-bar');
 const enemyHealthText = document.getElementById('enemy-health-text');
+const shopToggle = document.getElementById('shop-toggle');
+const stickerListContainer = document.getElementById('sticker-list-container');
 
 const localStickers = [
     { name: '2016 Hack Camp', url: 'Stickers/2016 Hack Camp.svg' },
@@ -68,6 +70,11 @@ let selectedStickers = [];
 let userCoins = 100;
 let userHealth = 100;
 let enemyHealth = 100;
+
+shopToggle.addEventListener('click', () => {
+    const isVisible = stickerListContainer.style.display !== 'none';
+    stickerListContainer.style.display = isVisible ? 'none' : 'block';
+});
 
 function getRandomStat(min = 1, max = 5) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
