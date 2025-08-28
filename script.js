@@ -154,7 +154,7 @@ function toggleStickerSelection(sticker, element) {
             selectedStickers.push(sticker);
             element.classList.add('selected');
         } else {
-            alert('You can only select 5 stickers.');
+            alert('You can only select 5 stickers. Scroll down to confirm');
         }
     }
     confirmSelectionButton.disabled = selectedStickers.length !== 5;
@@ -402,7 +402,20 @@ function fight() {
     fightLog.scrollTop = fightLog.scrollHeight; // Scroll to the bottom
 
     // Check for a winner
-    if (userHealth <= 0) {
+    if (userHealth <= 0 && enemyHealth <= 0) {
+        const coinsWon = 25; 
+        userCoins += coinsWon;
+        coinAmount.textContent = userCoins;
+        const endLog = document.createElement('div');
+        endLog.classList.add('log-entry');
+        endLog.innerHTML = `<strong>It's a draw!</strong> You earned ${coinsWon} coins.`;
+        fightLog.appendChild(endLog);
+        fightButton.textContent = "Rematch";
+        fightButton.disabled = false;
+        fightButton.removeEventListener('click', fight);
+        fightButton.addEventListener('click', resetFight);
+        saveGame();
+    } else if (userHealth <= 0) {
         const endLog = document.createElement('div');
         endLog.classList.add('log-entry');
         endLog.innerHTML = "<strong>You have been defeated!</strong>";
@@ -423,7 +436,7 @@ function fight() {
         fightButton.disabled = false;
         fightButton.removeEventListener('click', fight);
         fightButton.addEventListener('click', resetFight);
-        saveGame(); // Add this line
+        saveGame();
     }
 }
 
@@ -439,6 +452,28 @@ function resetFight() {
     fightButton.textContent = "Fight!";
     fightButton.removeEventListener('click', resetFight);
     fightButton.addEventListener('click', fight);
+}
+
+function resetGame() {
+    localStorage.clear();
+    userInventory = [];
+    enemyInventory = [];
+    allStickers = localStickers;
+    selectedStickers = [];
+    userCoins = 100;
+    userHealth = 100;
+    enemyHealth = 100;
+
+    initializeGame();
+    displayShopStickers();
+    updateInventoryDisplay();
+    setupEnemyTeam();
+    fightLog.innerHTML = ''; 
+    coinAmount.textContent = userCoins; 
+    userHealthBar.style.width = '100%';
+    userHealthText.textContent = '100%';
+    enemyHealthBar.style.width = '100%';
+    enemyHealthText.textContent = '100%';
 }
 
 shopToggleButton.addEventListener('click', () => {
