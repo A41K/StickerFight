@@ -141,12 +141,12 @@ function toggleStickerSelection(sticker, element) {
         const rareCount = selectedStickers.filter(s => s.rarity === 'Rare').length;
 
         if (sticker.rarity === 'Epic' && epicCount >= 1) {
-            alert('You can only select one Epic sticker.');
+            alert('You can only select one Epic sticker for fairness :D');
             return;
         }
 
         if (sticker.rarity === 'Rare' && rareCount >= 2) {
-            alert('You can only select up to two Rare stickers.');
+            alert('You can only select up to two Rare stickers. I know it\'s tough, but rules are rules!');
             return;
         }
 
@@ -262,7 +262,7 @@ function buySticker(stickerName) {
     } else if (userInventory.length >= 5) {
         alert('Your inventory is full!');
     } else {
-        alert('Not enough coins!');
+        alert('Not enough coins! Go and fight in the Fight Arena');
     }
 }
 
@@ -315,7 +315,7 @@ function upgradeSticker(index) {
         updateInventoryDisplay();
         saveGame(); // Add this line
     } else {
-        alert("Not enough coins to upgrade!");
+        alert("Not enough coins to upgrade! Go and fight in the Fight Arena");
     }
 }
 
@@ -430,7 +430,7 @@ function fight() {
         coinAmount.textContent = userCoins;
         const endLog = document.createElement('div');
         endLog.classList.add('log-entry');
-        endLog.innerHTML = `<strong>You are victorious!</strong> You earned ${coinsWon} coins.`;
+        endLog.innerHTML = `<strong>You have won!</strong> You earned ${coinsWon} coins.`;
         fightLog.appendChild(endLog);
         fightButton.textContent = "Rematch";
         fightButton.disabled = false;
@@ -493,7 +493,7 @@ function saveGame() {
         userHealth: userHealth
     };
     localStorage.setItem('stickerFightGameData', JSON.stringify(gameData));
-    console.log('Game saved!');
+    console.log('Game saved! Don\'t worry.');
 }
 
 // Load game data from localStorage
